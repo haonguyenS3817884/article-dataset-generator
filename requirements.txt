@@ -1,0 +1,6 @@
+fastapi[all]
+pymongo
+python-dotenv
+celery[redis]
+aiohttp
+beautifulsoup4

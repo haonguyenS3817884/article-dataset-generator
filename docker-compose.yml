@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+  redis:
+    image: redis:latest
+    volumes:
+      - redis_data:/data
+  extract_title_html_elements_worker:
+    build: .
+    command: celery -A celery_app worker -Q extract_title_html_elements --concurrency=8 --loglevel=info --prefetch-multiplier=1 --hostname=extract_title_html_elements_worker@%h
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+
+volumes:
+  redis_data:
+    driver: local
