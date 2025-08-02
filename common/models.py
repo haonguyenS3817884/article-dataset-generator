@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel
 from typing import Generic, TypeVar, Optional
 from bson import ObjectId
 
@@ -21,9 +21,3 @@ class PyObjectId(ObjectId):
     @classmethod
     def __get_pydantic_json_schema__(cls, schema):
         schema.update(type="string")
-
-class BaseHTMLElement(BaseModel):
-    tag_name: str
-    classes: list[str] = Field(default_factory=list, alias="class")
-    id: Optional[str] = None
-    model_config = ConfigDict(validate_by_name=True)

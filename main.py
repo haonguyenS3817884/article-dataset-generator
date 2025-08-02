@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from database import db_manager
-from title_html_elements.router import router as title_html_elements_router
+from html_elements.router import router as html_elements_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -24,4 +24,4 @@ app = FastAPI(lifespan=lifespan)
 async def index():
     return {"message": "Welcome to Article Dataset Generator"}
 
-app.include_router(title_html_elements_router)
+app.include_router(html_elements_router)
