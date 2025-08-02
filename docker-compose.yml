@@ -11,9 +11,9 @@ services:
     image: redis:latest
     volumes:
       - redis_data:/data
-  extract_title_html_elements_worker:
+  extract_html_elements_worker:
     build: .
-    command: celery -A celery_app worker -Q extract_title_html_elements --concurrency=8 --loglevel=info --prefetch-multiplier=1 --hostname=extract_title_html_elements_worker@%h
+    command: celery -A celery_app worker -Q extract_html_elements --concurrency=8 --loglevel=info --prefetch-multiplier=1 --hostname=extract_html_elements_worker@%h
     volumes:
       - .:/app
     depends_on:

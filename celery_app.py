@@ -6,7 +6,7 @@ from database import db_manager
 import os
 from celery_event_loop import celery_event_loop_manager
 
-EXTRACT_TITLE_HTML_ELEMENTS_QUEUE = "extract_title_html_elements"
+EXTRACT_HTML_ELEMENTS_QUEUE = "extract_html_elements"
 
 celery_app = Celery(
     "worker",
@@ -15,7 +15,7 @@ celery_app = Celery(
 )
 
 celery_app.conf.task_queues = (
-    Queue(EXTRACT_TITLE_HTML_ELEMENTS_QUEUE),
+    Queue(EXTRACT_HTML_ELEMENTS_QUEUE),
 )
 
 @worker_process_init.connect
@@ -37,4 +37,4 @@ def on_worker_process_shutdown(**kwargs):
     celery_event_loop_manager.loop.run_until_complete(db_manager.client.close())
     celery_event_loop_manager.loop.close()
 
-celery_app.conf.include = ["title_html_elements.tasks"]
+celery_app.conf.include = ["html_elements.tasks"]
